@@ -1,0 +1,53 @@
+Prohibited Content
+
+Illegal Products and Services:
+    Drugs, counterfeit goods, stolen items, unlicensed gambling, unsafe supplements.
+Deceptive Practices:
+    Fraud, scams, misrepresentation, data theft, unrealistic claims, and attempts to circumvent review systems.
+Violence and Dangerous Organizations:
+    Content that promotes violence, militarized movements, or praises dangerous groups; graphic or shocking imagery.
+Adult Content:
+    Nudity, sexually explicit material, solicitation, or exploitation.
+Weapons, Ammunition, Explosives:
+    Guns, ammunition, explosives, accessories; including how-to or modification guides.
+Human Exploitation:
+    Human trafficking, sale of body parts, coordination of exploitation.
+Unacceptable Supplements:
+    Unapproved, dangerous, or misleading supplements.
+Vaccine Discouragement and Misinformation:
+    Anti-vaccine content or any false health claims already debunked by third-party fact-checkers.
+Discriminatory Practices and Hate Speech:
+    Attacks or exclusions based on race, ethnicity, religion, gender, disability, or orientation.
+Profanity, Bullying, and Harassment:
+    Offensive language, abusive comments, targeted harassment.
+
+
+Restricted Content (Allowed With Conditions)
+
+Alcohol:
+    Strict adherence to local laws; only target audiences of legal drinking age.
+Gambling and Betting:
+    Requires Meta approval, must target adults in countries where legal.
+Political and Social Issues:
+    Authorization required; “paid for by” disclaimer and compliance with local rules.
+Cryptocurrency, Financial, and Insurance Products:
+    Pre-approval, legal registration, and country-specific regulations.
+Dating Services:
+    Meta’s explicit approval required; needs to comply with dating-specific guidelines.
+Online Pharmacies and Health Products:
+    Must be certified, not exploit insecurities or promise unrealistic results.
+Commercial Exploitation of Crises:
+    No use of crises (natural disasters, emergencies) for ad profit.
+Tobacco, Vaping, Cessation Products:
+    Only cessation products with health authority approval; legal restrictions apply.
+Endangered Species or Body Parts:
+    No products from endangered species or sale of live animals except for donations or rehoming.
+
+
+Intellectual Property Violations
+Use of copyrighted material, trademarks, branding, or Meta’s assets without authorization.
+
+
+Privacy and Data Issues
+Collection of sensitive user info without consent (health, income, political views).
+Manipulation of tracking, misleading destination URLs, or hidden landing pages.

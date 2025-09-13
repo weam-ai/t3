@@ -1,0 +1,38 @@
+{
+  "name": "meta-ads-policy-checker",
+  "version": "1.0.0",
+  "description": "A Node.js module that compares content summaries against Meta's advertising policies using Google's Gemini Pro AI model",
+  "main": "meta-ads-policy-checker.js",
+  "scripts": {
+    "test": "node test-specific-summary.js"
+  },
+  "keywords": [
+    "meta",
+    "facebook",
+    "ads",
+    "policy",
+    "compliance",
+    "gemini",
+    "ai",
+    "content-moderation"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.2.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/meta-ads-policy-checker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/meta-ads-policy-checker/issues"
+  },
+  "homepage": "https://github.com/your-username/meta-ads-policy-checker#readme"
+}
