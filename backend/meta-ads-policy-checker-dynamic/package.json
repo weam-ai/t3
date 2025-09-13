@@ -1,0 +1,40 @@
+{
+  "name": "meta-ads-policy-dynamic-checker",
+  "version": "1.0.0",
+  "description": "A Node.js module that dynamically fetches Meta's advertising policies and checks compliance using Anthropic Claude 3.7 Sonnet",
+  "main": "meta-ads-policy-dynamic-checker.js",
+  "scripts": {
+    "test": "node meta-ads-policy-dynamic-checker.js"
+  },
+  "keywords": [
+    "meta",
+    "facebook",
+    "ads",
+    "policy",
+    "compliance",
+    "claude",
+    "anthropic",
+    "ai",
+    "content-moderation",
+    "dynamic"
+  ],
+  "author": "AI Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/meta-ads-policy-dynamic-checker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/meta-ads-policy-dynamic-checker/issues"
+  },
+  "homepage": "https://github.com/your-username/meta-ads-policy-dynamic-checker#readme"
+}

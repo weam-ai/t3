@@ -12,9 +12,10 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const SummarizeMultiMedia = require('./lib/SummarizeMultiMedia');
 const { MetaAdsPolicyChecker } = require('./meta-ads-policy-checker/meta-ads-policy-checker');
+const { MetaAdsPolicyChecker: DynamicMetaAdsPolicyChecker } = require('./meta-ads-policy-checker-dynamic/meta-ads-policy-dynamic-checker');
 
 // Configuration
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const UPLOAD_DIR = 'media'; // Changed to 'media' as per requirements
 const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 const ALLOWED_VIDEO_TYPES = ['mp4', 'avi', 'mov', 'wmv', 'flv', 'webm', 'mkv'];
@@ -22,6 +23,9 @@ const ALLOWED_IMAGE_TYPES = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
 
 // Gemini API Configuration
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'your-gemini-api-key'; // Default key from test file
+
+// Anthropic API Configuration for Dynamic Policy Checker
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || "your-anthropic-api-key";
 
 // Ensure upload directory exists
 const ensureUploadDir = async () => {
@@ -154,7 +158,8 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       health: 'GET /health',
-      upload: 'POST /summarize'
+      upload: 'POST /summarize',
+      uploadDynamic: 'POST /summarize-dynamic'
     },
     supportedFormats: {
       videos: ALLOWED_VIDEO_TYPES,
@@ -166,16 +171,21 @@ app.get('/', (req, res) => {
       'AI-powered analysis using Google Gemini',
       'Automatic summarization for videos and images',
       'Key points extraction',
-      'Meta Ads policy violation checking',
+      'Meta Ads policy violation checking (static policies)',
+      'Meta Ads policy violation checking (dynamic policies with Claude)',
       'Comprehensive error handling'
     ],
     process: [
-      '1. Upload file to /summarize endpoint',
+      '1. Upload file to /summarize or /summarize-dynamic endpoint',
       '2. File is saved to media folder',
       '3. Gemini AI analyzes the content',
-      '4. Meta Ads policy checker analyzes the summary',
+      '4. Meta Ads policy checker analyzes the summary (static or dynamic)',
       '5. Returns analysis with summary, key points, and policy violations'
-    ]
+    ],
+    endpoints: {
+      '/summarize': 'Uses static Meta Ads policies with Gemini AI',
+      '/summarize-dynamic': 'Uses dynamic Meta Ads policies with Claude AI'
+    }
   });
 });
 
@@ -347,6 +357,188 @@ app.post('/summarize', upload.single('file'), handleUploadError, async (req, res
   }
 });
 
+// Dynamic upload endpoint with Gemini AI analysis and Dynamic Meta Ads Policy Checker
+app.post('/summarize-dynamic', upload.single('file'), handleUploadError, async (req, res) => {
+  try {
+    // Check if file was uploaded
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: 'No file provided. Please upload a video or image file.',
+        error: 'NO_FILE_PROVIDED'
+      });
+    }
+
+    // Check if Anthropic API key is configured
+    if (!ANTHROPIC_API_KEY) {
+      return res.status(500).json({
+        success: false,
+        message: 'Anthropic API key not configured. Please set ANTHROPIC_API_KEY environment variable.',
+        error: 'ANTHROPIC_API_KEY_NOT_CONFIGURED'
+      });
+    }
+
+    // Determine file type
+    const fileExtension = path.extname(req.file.originalname).toLowerCase().slice(1);
+    const isVideo = ALLOWED_VIDEO_TYPES.includes(fileExtension);
+    const isImage = ALLOWED_IMAGE_TYPES.includes(fileExtension);
+    const fileType = isVideo ? 'video' : isImage ? 'image' : 'unknown';
+
+    // Extract file information
+    const fileInfo = {
+      originalName: req.file.originalname,
+      filename: req.file.filename,
+      filePath: req.file.path,
+      fileSize: req.file.size,
+      mimeType: req.file.mimetype,
+      fileType: fileType,
+      uploadDate: new Date(),
+      title: req.body.title || '',
+      description: req.body.description || ''
+    };
+
+    // Log successful upload
+    console.log(`File uploaded successfully: ${fileInfo.originalName} (${fileInfo.fileSize} bytes, ${fileType})`);
+
+    // Step 2: Use Gemini AI to analyze the uploaded file
+    console.log('🤖 Starting Gemini AI analysis...');
+
+    try {
+      // Initialize Gemini analyzer
+      const analyzer = new SummarizeMultiMedia(GEMINI_API_KEY);
+
+      // Create analysis prompt based on file type
+      const analysisPrompt = "Analyze the provided video or image for potential Meta Ads policy violations and deliver a single-paragraph, 250-word descriptive summary. Detail the main visual content, actions, themes, and any visible text, symbols, logos, audio, and any other content. Clearly highlight any elements likely violating Meta Ads policies, such as prohibited products, misleading claims, violence, nudity, sensitive content, or controversial subjects. Assess the nature and likelihood of any potential violation based on Meta Ads guidelines, keeping the summary factual, objective, and focused on ad intention.";
+      // Perform AI analysis
+      const analysisResult = await analyzer.analyzeMultimedia(fileInfo.filePath, analysisPrompt);
+
+      if (!analysisResult.success) {
+        throw new Error(`Gemini analysis failed: ${analysisResult.error.message}`);
+      }
+
+      console.log('✅ Gemini AI analysis completed successfully');
+
+      // Step 3: Use Dynamic Meta Ads Policy Checker to analyze the summary
+      console.log('🔍 Starting Dynamic Meta Ads policy analysis...');
+
+      try {
+        // Initialize dynamic policy checker
+        const dynamicPolicyChecker = new DynamicMetaAdsPolicyChecker(ANTHROPIC_API_KEY);
+
+        // Check the summary against Meta Ads policies using dynamic fetching
+        const policyResult = await dynamicPolicyChecker.checkAdCompliance(analysisResult.data.summary);
+
+        console.log('✅ Dynamic Meta Ads policy analysis completed successfully');
+
+        // Step 4: Prepare final response with both analysis and policy check
+        // Transform the dynamic policy checker response to match the static checker format
+        const transformedPolicyResult = {
+          violated: !policyResult.compliant,
+          violations: policyResult.violatedPolicies.map(violation => ({
+            category: violation.category,
+            description: violation.reason,
+            severity: policyResult.details.riskLevel || 'medium'
+          })),
+          reasoning: policyResult.details.description || 'Policy analysis completed'
+        };
+
+        const responseData = {
+          message: `${fileType.charAt(0).toUpperCase() + fileType.slice(1)} analyzed and policy-checked successfully (Dynamic)`,
+          fileInfo: {
+            originalName: fileInfo.originalName,
+            filename: fileInfo.filename,
+            fileSize: fileInfo.fileSize,
+            fileType: fileInfo.fileType,
+            uploadDate: fileInfo.uploadDate
+          },
+          analysis: {
+            summary: analysisResult.data.summary,
+            keyPoints: analysisResult.data.keyPoints,
+            fileMetadata: analysisResult.data.fileMetadata
+          },
+          policyCheck: {
+            violated: transformedPolicyResult.violated,
+            violations: transformedPolicyResult.violations,
+            reasoning: transformedPolicyResult.reasoning,
+            checkedAt: new Date().toISOString(),
+            method: 'dynamic'
+          }
+        };
+
+        // Return success response with analysis and policy check
+        res.status(201).json({
+          success: true,
+          ...responseData,
+          timestamp: new Date().toISOString()
+        });
+
+      } catch (policyError) {
+        console.error('❌ Dynamic Meta Ads policy analysis error:', policyError.message);
+
+        // Return response with analysis but policy check failed
+        const responseData = {
+          message: `${fileType.charAt(0).toUpperCase() + fileType.slice(1)} analyzed successfully, but dynamic policy check failed`,
+          fileInfo: {
+            originalName: fileInfo.originalName,
+            filename: fileInfo.filename,
+            fileSize: fileInfo.fileSize,
+            fileType: fileInfo.fileType,
+            uploadDate: fileInfo.uploadDate
+          },
+          analysis: {
+            summary: analysisResult.data.summary,
+            keyPoints: analysisResult.data.keyPoints,
+            fileMetadata: analysisResult.data.fileMetadata
+          },
+          policyCheck: {
+            error: 'Dynamic policy analysis failed',
+            details: policyError.message,
+            method: 'dynamic'
+          }
+        };
+
+        res.status(201).json({
+          success: true,
+          ...responseData,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+    } catch (analysisError) {
+      console.error('❌ Gemini analysis error:', analysisError.message);
+
+      // Return error response but keep the file uploaded
+      res.status(500).json({
+        success: false,
+        message: 'File uploaded successfully but analysis failed',
+        error: 'ANALYSIS_FAILED',
+        details: analysisError.message,
+        fileInfo: {
+          originalName: fileInfo.originalName,
+          filename: fileInfo.filename,
+          fileSize: fileInfo.fileSize,
+          fileType: fileInfo.fileType,
+          uploadDate: fileInfo.uploadDate
+        },
+        timestamp: new Date().toISOString()
+      });
+    }
+
+  } catch (error) {
+    // Clean up uploaded file if there was an error
+    if (req.file && req.file.path) {
+      try {
+        await fs.remove(req.file.path);
+        console.log(`Cleaned up file after error: ${req.file.path}`);
+      } catch (cleanupError) {
+        console.error('Error cleaning up file:', cleanupError);
+      }
+    }
+
+    throw error;
+  }
+});
+
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
@@ -369,10 +561,12 @@ const startServer = async () => {
 📍 Port: ${PORT}
 📁 Upload Directory: ${UPLOAD_DIR}
 🤖 Gemini AI: ${GEMINI_API_KEY ? 'Configured' : 'Not configured - using default key'}
-🔍 Meta Ads Policy Checker: Integrated
+🔍 Meta Ads Policy Checker (Static): Integrated
+🔍 Meta Ads Policy Checker (Dynamic): ${ANTHROPIC_API_KEY ? 'Configured' : 'Not configured - requires ANTHROPIC_API_KEY'}
 🔗 API Documentation: http://localhost:${PORT}/
 📋 Health Check: http://localhost:${PORT}/health
-📤 Upload, Analyze & Policy Check: http://localhost:${PORT}/summarize
+📤 Upload, Analyze & Policy Check (Static): http://localhost:${PORT}/summarize
+📤 Upload, Analyze & Policy Check (Dynamic): http://localhost:${PORT}/summarize-dynamic
       `);
     });
   } catch (error) {
