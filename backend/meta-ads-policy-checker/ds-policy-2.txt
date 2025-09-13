@@ -1,0 +1,273 @@
+1. Core Community Standards
+Meta's Community Standards are built on four fundamental values:
+
+Authenticity: Preventing identity misrepresentation and deceptive content
+Safety: Removing content that poses physical security risks
+Privacy: Protecting personal information and user data
+Dignity: Ensuring respectful treatment of all platform users
+
+2. Prohibited Content Categories
+Completely Banned Content:
+Illegal Products: Counterfeit goods, drugs, weapons, and unauthorized services
+
+Health Misinformation: False medical claims, unproven treatments, and dangerous health advice
+
+Violence and Hate Speech: Content inciting violence, harassment, or promoting discrimination
+
+Graphic Content: Disturbing imagery, explicit violence, and shocking material
+
+Scams and Fraud: Deceptive financial products, pyramid schemes, and misleading offers
+
+Misinformation: Content debunked by third-party fact-checkers
+
+Exploitation: Any content involving minors in inappropriate contexts
+
+Video-Specific Prohibitions:
+Graphic violence or disturbing imagery in video content
+
+Sensational before/after transformations without disclaimers
+
+Videos promoting dangerous activities or illegal substances
+
+Content with inappropriate audio or messaging
+
+3. Restricted Content Requiring Special Approval
+Regulated Industries:
+Alcohol Advertising:
+
+Must comply with local age restrictions (21+ in US, 18+ in many regions)
+
+Cannot target minors or promote excessive consumption
+
+Requires clear brand identification and responsible messaging
+
+Gambling and Betting:
+
+Requires pre-approval from Meta
+
+Cannot make unrealistic promises about winnings
+
+Must include responsible gambling disclaimers
+
+Age restrictions apply (21+ typically)
+
+Health and Wellness Products:
+
+Cannot make definitive medical claims
+
+Must avoid terms like "guaranteed cure" or "miracle treatment"
+
+Requires scientific backing for health claims
+
+Subject to FDA and regional health authority guidelines
+
+Financial Services:
+
+Must provide clear, accurate information about rates and terms
+
+Cannot use misleading language about guaranteed returns
+
+Requires proper disclosures and risk warnings
+
+Subject to financial regulatory compliance
+
+4. Special Ad Categories with Enhanced Restrictions
+Housing, Employment, and Credit advertisements have strict anti-discrimination requirements:
+
+Targeting Limitations:
+
+Age targeting restricted to 18-65+ range only
+
+Cannot exclude based on ZIP codes (state-level targeting only)
+
+Limited demographic targeting options
+
+Enhanced review process for all ads
+
+Required Documentation:
+
+Business verification
+
+Compliance certificates
+
+Anti-discrimination training completion
+
+
+
+5. AI Content Policies and Restrictions
+Meta's recent AI policies include specific guidelines for AI-generated content:
+
+AI Content Labeling Requirements:
+
+All AI-generated content must be labeled "Made with AI" or "Imagined with AI"
+
+Meta's detection systems automatically identify and label AI content
+
+Manual labeling required for certain AI tools not automatically detected
+
+Prohibited AI Content:
+
+AI-generated content sexualizing minors
+
+AI content promoting harmful stereotypes or discrimination
+
+False AI-generated medical or legal advice
+
+Deepfakes designed to deceive or manipulate
+
+AI content impersonating real individuals without consent
+
+AI Content Moderation:
+
+AI content subject to same community standards as human-created content
+
+Enhanced scrutiny for potentially misleading AI-generated information
+
+Fact-checking applied to AI-generated news or informational content
+
+6. Video Advertisement Technical and Content Guidelines
+Technical Requirements:
+Format: MP4 or MOV recommended
+
+Resolution: Minimum 1080x1080 pixels for optimal quality
+
+Aspect Ratio: 4:5 for feed placements, 9:16 for stories
+
+File Size: Maximum 4GB per video file
+
+Length: 15 seconds maximum for stories, up to 241 minutes for feed
+
+Frame Rate: 30fps recommended for smooth playback
+
+Content Best Practices:
+Include captions for accessibility and sound-off viewing
+
+Use clear, compelling call-to-action buttons
+
+Ensure audio quality is clear and professional
+
+Avoid rapid scene changes that may trigger seizures
+
+Match video content to landing page promises
+
+Use high-quality visuals and professional production values
+
+Prohibited Video Content Elements:
+Misleading thumbnails or clickbait imagery
+
+Sensational or manipulative before/after visuals
+
+Graphic or disturbing imagery
+
+Excessive text overlay (20% rule)
+
+Audio that violates copyright or contains inappropriate language
+
+7. Common Advertisement Rejection Reasons
+Your videos may be rejected for the following reasons:
+
+Content Mismatches:
+
+Landing page content doesn't match advertisement claims
+
+Misleading product descriptions or pricing
+
+Bait-and-switch tactics
+
+Policy Violations:
+
+Use of restricted language without proper disclosures
+
+Targeting violations for special ad categories
+
+Creative content considered sensational or manipulative
+
+Quality Issues:
+
+Low video quality or unprofessional appearance
+
+Excessive editing or rapid scene changes
+
+Poor audio quality or inappropriate background music
+
+Account-Related Issues:
+
+Previous policy violations on the account
+
+New account with limited advertising history
+
+Unusual spending patterns or rapid campaign changes
+
+
+
+
+
+
+8. Best Practices for Advertisement Compliance
+Content Creation Guidelines:
+Be Transparent: Clearly disclose any material connections, sponsorships, or paid partnerships
+
+Use Accurate Claims: Ensure all product claims are substantiated with evidence
+
+Include Proper Disclaimers: Add necessary legal disclaimers for health, financial, or results-based claims
+
+Respect Intellectual Property: Only use licensed music, images, and video content
+
+Target Appropriately: Use demographic and interest targeting responsibly and legally
+
+Pre-Launch Checklist:
+Review content against Meta's Community Standards
+
+Verify all claims made in video content
+
+Check targeting parameters for compliance
+
+Ensure landing page matches ad promises
+
+Test video quality and audio clarity
+
+Confirm all necessary disclaimers are included
+
+9. Appeal Process and Policy Updates
+If your advertisement is rejected:
+
+Appeal Steps:
+
+Review the specific policy violation cited
+
+Submit an appeal through Meta Business Help Center
+
+Provide additional context or documentation if requested
+
+Wait for human review (typically 24-48 hours)
+
+Make necessary adjustments based on feedback
+
+Staying Updated:
+
+Meta policies are updated regularly
+
+Subscribe to Meta Business updates for policy changes
+
+Regular review of Transparency Center for latest guidelines
+
+Monitor industry best practices and compliance requirements
+
+10. Regional and Legal Considerations
+International Compliance:
+
+Different countries have varying advertising regulations
+
+Age restrictions vary by region (18+ vs 21+ for alcohol)
+
+Cultural sensitivities must be considered for global campaigns
+
+Local consumer protection laws apply
+
+Industry-Specific Regulations:
+
+Healthcare advertisements subject to FDA and medical authority guidelines
+
+Financial services must comply with regional banking and investment regulations
+
+Political advertising requires enhanced transparency and disclosure requirements
