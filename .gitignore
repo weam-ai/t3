@@ -1,33 +1,88 @@
-# Environment files
+# Environment files (Frontend & Backend)
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+Frontend/.env*
+backend/.env*
 
-# Package lock files
+# Package lock files (Frontend & Backend)
 package-lock.json
 yarn.lock
+Frontend/package-lock.json
+backend/package-lock.json
+Frontend/yarn.lock
+backend/yarn.lock
 
-# Node modules
+# Node modules (Frontend & Backend)
 node_modules/
+Frontend/node_modules/
+backend/node_modules/
+*/node_modules/
 
-# Build outputs
+# Build outputs (Frontend & Backend)
 dist/
 build/
+Frontend/dist/
+Frontend/build/
+backend/dist/
+backend/build/
+
+# Frontend specific (Vite/React)
+Frontend/.vite/
+Frontend/coverage/
+
+# Backend specific
+backend/uploads/
+backend/temp/
+backend/logs/
+
+# Media files (Backend sample testing)
+backend/sample-testing-media/
+backend/media/
 
 # IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+.eslintcache
 
 # OS files
 .DS_Store
 Thumbs.db
+*.tmp
+*.temp
 
 # Logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
