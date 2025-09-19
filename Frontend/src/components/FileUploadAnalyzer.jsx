@@ -20,9 +20,11 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Switch,
-  FormControlLabel,
-  Stack
+  ToggleButton,
+  ToggleButtonGroup,
+  Stack,
+  AppBar,
+  Toolbar
 } from '@mui/material';
 import {
   CloudUpload,
@@ -39,49 +41,52 @@ import {
   Assessment,
   Description,
   Schedule,
-  Search
+  Search,
+  ArrowBack
 } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 
 // Styled components with radiant theme
 const GradientBox = styled(Box)(({ theme }) => ({
-  // background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  background: 'radial-gradient(600px 300px at 50% -60px, rgba(124,58,237,0.12), transparent 70%)',
   minHeight: '100vh',
   padding: theme.spacing(3),
 }));
 
-const UploadArea = styled(Paper)(({ theme, isDragOver, hasFile }) => ({
+const UploadArea = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== 'isDragOver' && prop !== 'hasFile',
+})(({ theme, isDragOver, hasFile }) => ({
   // height: 200,
   margin: '0 auto',
   borderRadius: theme.spacing(2),
   padding: theme.spacing(2),
   textAlign: 'center',
   cursor: 'pointer',
-  color: '#2a00a1',
+  color: theme.palette.primary.dark,
   transition: 'all 0.3s ease',
-  borderWidth: 0.5,
+  borderWidth: 1,
   borderStyle: 'solid',
   borderColor: hasFile
-    ? '#cdffcd'
+    ? '#e9d5ff'
     : isDragOver
-      ? '#e3f2fd'
-      : '#2a00a1',
+      ? '#ede9fe'
+      : theme.palette.primary.main,
   minHeight: 200,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   '&:hover': {
-    borderColor: '#2196f3',
+    borderColor: theme.palette.primary.light,
     transform: 'translateY(-2px)',
-    boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+    boxShadow: '0 8px 25px rgba(124,58,237,0.18)',
     // background: 'linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%)',
   }
 }));
 
 const AnalyzeButton = styled(Button)(({ theme }) => ({
-  background: 'linear-gradient(135deg, #2a00a1 0%, #f58ae0 100%)',
-  color: 'white',
+  background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
+  color: '#ffffff',
   padding: theme.spacing(1.5, 4),
   fontSize: '1.1rem',
   fontWeight: 'bold',
@@ -89,7 +94,7 @@ const AnalyzeButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     // background: 'linear-gradient(135deg, #ee5a24 0%, #ff6b6b 100%)',
     transform: 'translateY(-2px)',
-    boxShadow: '0 8px 16px #f58ae0',
+    boxShadow: '0 8px 16px rgba(124,58,237,0.35)',
   },
   '&:disabled': {
     background: 'linear-gradient(135deg, #ccc 0%, #999 100%)',
@@ -99,7 +104,7 @@ const AnalyzeButton = styled(Button)(({ theme }) => ({
 
 const ResultCard = styled(Card)(({ theme }) => ({
   marginTop: theme.spacing(3),
-  background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+  background: 'linear-gradient(135deg, #ffffff 0%, #faf5ff 100%)',
   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
   borderRadius: theme.spacing(2),
 }));
@@ -143,17 +148,17 @@ const SeverityChip = styled(Chip)(({ severity }) => ({
 // Policy Mode Toggle Components
 const PolicyModeCard = styled(Card)(({ theme }) => ({
   marginBottom: theme.spacing(3),
-  background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+  background: 'linear-gradient(135deg, #ffffff 0%, #faf5ff 100%)',
   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
   borderRadius: theme.spacing(2),
-  border: '1px solid #e0e0e0',
+  border: '1px solid #ede9fe',
 }));
 
 const ModeButton = styled(Button)(({ active }) => ({
   background: active 
-    ? 'linear-gradient(135deg, #4caf50 0%, #66bb6a 100%)'
-    : 'linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%)',
-  color: active ? 'white' : '#666',
+    ? 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)'
+    : 'linear-gradient(135deg, #ede9fe 0%, #f5f3ff 100%)',
+  color: active ? '#ffffff' : '#6b7280',
   fontWeight: 'bold',
   borderRadius: theme => theme.spacing(2),
   padding: theme => theme.spacing(0.5, 2),
@@ -162,46 +167,27 @@ const ModeButton = styled(Button)(({ active }) => ({
   minWidth: 80,
   '&:hover': {
     background: active 
-      ? 'linear-gradient(135deg, #45a049 0%, #5cb85c 100%)'
-      : 'linear-gradient(135deg, #d0d0d0 0%, #e8e8e8 100%)',
+      ? 'linear-gradient(135deg, #6d28d9 0%, #7e22ce 100%)'
+      : 'linear-gradient(135deg, #e9d5ff 0%, #ede9fe 100%)',
   }
 }));
 
-const ToggleSwitch = styled(Switch)(({ theme }) => ({
-  width: 60,
-  height: 34,
-  padding: 0,
-  '& .MuiSwitch-switchBase': {
-    padding: 0,
-    margin: 2,
-    transitionDuration: 300,
-    '&.Mui-checked': {
-      transform: 'translateX(26px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        backgroundColor: '#9c27b0',
-        opacity: 1,
-        border: 0,
-      },
-    },
-    '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#9c27b0',
-      border: '6px solid #fff',
-    },
+// Segmented control
+const Segmented = styled(ToggleButtonGroup)(({ theme }) => ({
+  background: '#f5f3ff',
+  borderRadius: theme.spacing(2),
+  padding: 4,
+  '& .MuiToggleButton-root': {
+    border: 'none',
+    textTransform: 'none',
+    borderRadius: theme.spacing(1.5),
+    padding: theme.spacing(0.5, 2),
+    color: '#6b7280',
   },
-  '& .MuiSwitch-thumb': {
-    boxSizing: 'border-box',
-    width: 30,
-    height: 30,
-  },
-  '& .MuiSwitch-track': {
-    borderRadius: 34 / 2,
-    backgroundColor: '#e0e0e0',
-    opacity: 1,
-    transition: theme.transitions.create(['background-color'], {
-      duration: 300,
-    }),
-  },
+  '& .Mui-selected': {
+    background: 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)',
+    color: '#fff',
+  }
 }));
 
 const FileUploadAnalyzer = () => {
@@ -211,8 +197,11 @@ const FileUploadAnalyzer = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState(null);
-  const [isDynamicMode, setIsDynamicMode] = useState(true); // true = Dynamic, false = Static
+  const [policySource, setPolicySource] = useState('live'); // 'live' or 'standard'
   const fileInputRef = useRef(null);
+
+  // Derived state for dynamic mode
+  const isDynamicMode = policySource === 'live';
 
   // File validation
   const validateFile = (file) => {
@@ -315,8 +304,8 @@ const FileUploadAnalyzer = () => {
       formdata.append("file", file);
       const apiUrl = import.meta.env.VITE_API_URL;
 
-      // Choose API endpoint based on toggle mode
-      const endpoint = isDynamicMode ? '/summarize-dynamic' : '/summarize';
+      // Choose API endpoint based on selected policy source
+      const endpoint = policySource === 'live' ? '/summarize-dynamic' : '/summarize';
 
       const response = await fetch(`${apiUrl}${endpoint}`, {
         method: 'POST',
@@ -347,51 +336,60 @@ const FileUploadAnalyzer = () => {
 
   return (
     <GradientBox>
-      <Box maxWidth="1200px" mx="auto" width={'100%'}>
+      <Box maxWidth="none" mx={2} width={'100%'}>
 
-        {/* Policy Checking Mode Toggle */}
+        {/* Header */}
+        <AppBar position="static" color="transparent" elevation={0} sx={{ mb: 2 }}>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <img src="/weam-logo.svg" alt="Weam" width={32} height={32} />
+              <Typography variant="h6" fontWeight="bold" color="#7c3aed">Weam AI</Typography>
+            </Box>
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBack />}
+              onClick={() => {
+                const url = import.meta.env.VITE_WEAM_URL;
+                if (url) window.location.href = url;
+              }}
+              sx={{ borderRadius: 2, background: 'linear-gradient(180deg, #ffffff, #f6f5ff)', borderColor: '#e9d5ff' }}
+            >
+              Back to Weam
+            </Button>
+          </Toolbar>
+        </AppBar>
+
+        {/* Policy Source Selection */}
         <PolicyModeCard>
           <CardContent>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Search sx={{ color: '#2a00a1', fontSize: 28 }} />
-                <Typography variant="h5" fontWeight="bold" color="#2a00a1">
-                  Policy Checking Mode
+                <Search sx={{ color: '#7c3aed', fontSize: 28 }} />
+                <Typography variant="h5" fontWeight="bold" color="#7c3aed">
+                  Ad Content Compliance Checker
                 </Typography>
               </Box>
-              <ModeButton active={isDynamicMode}>
-                {isDynamicMode ? 'DYNAMIC' : 'STATIC'}
-              </ModeButton>
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, mb: 3 }}>
               <Typography 
                 variant="body1" 
                 fontWeight="medium" 
-                color={!isDynamicMode ? '#2a00a1' : '#666'}
-                sx={{ transition: 'color 0.3s ease' }}
+                color={policySource==='standard' ? '#7c3aed' : '#666'}
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setPolicySource('standard')}
               >
-                Static
+                Standard
               </Typography>
-              
-              <FormControlLabel
-                control={
-                  <ToggleSwitch
-                    checked={isDynamicMode}
-                    onChange={(e) => setIsDynamicMode(e.target.checked)}
-                  />
-                }
-                label=""
-                sx={{ m: 0 }}
-              />
-              
+              <Divider orientation="vertical" flexItem />
               <Typography 
                 variant="body1" 
                 fontWeight="medium" 
-                color={isDynamicMode ? '#2a00a1' : '#666'}
-                sx={{ transition: 'color 0.3s ease' }}
+                color={policySource==='live' ? '#7c3aed' : '#666'}
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setPolicySource('live')}
               >
-                Dynamic
+                Live
               </Typography>
             </Box>
 
@@ -406,7 +404,7 @@ const FileUploadAnalyzer = () => {
                     transition: 'opacity 0.3s ease'
                   }}
                 >
-                  Uses static Meta Ads policies with Gemini AI.
+                  Uses Meta Ads policies.
                 </Typography>
               </Box>
               <Box sx={{ flex: 1, textAlign: 'center' }}>
@@ -419,29 +417,34 @@ const FileUploadAnalyzer = () => {
                     transition: 'opacity 0.3s ease'
                   }}
                 >
-                  Uses dynamic Meta Ads policies with Claude AI.
+                  Uses real-time Meta Ads policies.
                 </Typography>
               </Box>
             </Box>
 
-            {/* Dynamic Policy Checking Description */}
-            {isDynamicMode && (
-              <Box 
-                sx={{ 
-                  background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
-                  borderRadius: 2,
-                  p: 2,
-                  border: '1px solid #dee2e6'
-                }}
-              >
-                <Typography variant="h6" fontWeight="bold" color="#2a00a1" sx={{ mb: 1 }}>
-                  Dynamic Policy Checking
-                </Typography>
-                <Typography variant="body2" color="#666" sx={{ lineHeight: 1.6 }}>
-                  Uses real-time Meta Ads policies fetched from Meta's official transparency page with Anthropic Claude AI for the most up-to-date and accurate policy compliance checking. Perfect for comprehensive content analysis.
-                </Typography>
-              </Box>
-            )}
+            {/* Policy Description Box - Always visible with consistent size */}
+            <Box 
+              sx={{ 
+                background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)',
+                borderRadius: 2,
+                p: 2,
+                border: '1px solid #dee2e6',
+                minHeight: '80px', // Fixed minimum height for consistency
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center'
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" color="#7c3aed" sx={{ mb: 1 }}>
+                {policySource === 'live' ? 'Live Policy Source' : 'Standard Policy Source'}
+              </Typography>
+              <Typography variant="body2" color="#666" sx={{ lineHeight: 1.6 }}>
+                {policySource === 'live' 
+                  ? 'Uses real-time Meta Ads policies fetched from Meta\'s transparency resources for the most up-to-date compliance checking.'
+                  : 'Uses Meta Ads policies for consistent and reliable compliance checking.'
+                }
+              </Typography>
+            </Box>
           </CardContent>
         </PolicyModeCard>
 

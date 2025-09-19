@@ -6,16 +6,47 @@ import './App.css'
 
 const theme = createTheme({
   palette: {
+    mode: 'light',
     primary: {
-      main: '#667eea',
+      main: '#7c3aed', // purple-600
+      light: '#a78bfa',
+      dark: '#6d28d9',
+      contrastText: '#ffffff',
     },
     secondary: {
-      main: '#764ba2',
+      main: '#9333ea',
+      light: '#c4b5fd',
+      dark: '#7e22ce',
+      contrastText: '#ffffff',
     },
+    background: {
+      default: '#ffffff',
+      paper: '#ffffff'
+    },
+    text: {
+      primary: '#1f1147',
+      secondary: '#4b3e76'
+    }
+  },
+  shape: {
+    borderRadius: 12
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    button: {
+      textTransform: 'none',
+      fontWeight: 700
+    }
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9999
+        }
+      }
+    }
+  }
 });
 
 function App() {

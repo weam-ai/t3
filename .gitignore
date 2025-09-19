@@ -1,0 +1,84 @@
+# Environment files
+.env
+**/.env
+
+# Package lock files
+package-lock.json
+yarn.lock
+**/package-lock.json
+**/yarn.lock
+
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+**/dist/
+**/build/
+
+# Frontend specific (Vite/React)
+.vite/
+**/.vite/
+coverage/
+**/coverage/
+
+# Backend specific
+uploads/
+**/uploads/
+temp/
+**/temp/
+logs/
+**/logs/
+
+# Media files
+sample-testing-media/
+**/sample-testing-media/
+media/
+**/media/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+.eslintcache
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
