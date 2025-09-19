@@ -1,46 +1,42 @@
-# Environment files (Frontend & Backend)
+# Environment files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-Frontend/.env*
-backend/.env*
+**/.env
 
-# Package lock files (Frontend & Backend)
+# Package lock files
 package-lock.json
 yarn.lock
-Frontend/package-lock.json
-backend/package-lock.json
-Frontend/yarn.lock
-backend/yarn.lock
+**/package-lock.json
+**/yarn.lock
 
-# Node modules (Frontend & Backend)
+# Node modules
 node_modules/
-Frontend/node_modules/
-backend/node_modules/
-*/node_modules/
+**/node_modules/
 
-# Build outputs (Frontend & Backend)
+# Build outputs
 dist/
 build/
-Frontend/dist/
-Frontend/build/
-backend/dist/
-backend/build/
+**/dist/
+**/build/
 
 # Frontend specific (Vite/React)
-Frontend/.vite/
-Frontend/coverage/
+.vite/
+**/.vite/
+coverage/
+**/coverage/
 
 # Backend specific
-backend/uploads/
-backend/temp/
-backend/logs/
+uploads/
+**/uploads/
+temp/
+**/temp/
+logs/
+**/logs/
 
-# Media files (Backend sample testing)
-backend/sample-testing-media/
-backend/media/
+# Media files
+sample-testing-media/
+**/sample-testing-media/
+media/
+**/media/
 
 # IDE files
 .vscode/

@@ -404,7 +404,7 @@ const FileUploadAnalyzer = () => {
                     transition: 'opacity 0.3s ease'
                   }}
                 >
-                  Uses static Meta Ads policies with Gemini AI.
+                  Uses Meta Ads policies.
                 </Typography>
               </Box>
               <Box sx={{ flex: 1, textAlign: 'center' }}>
@@ -417,7 +417,7 @@ const FileUploadAnalyzer = () => {
                     transition: 'opacity 0.3s ease'
                   }}
                 >
-                  Uses dynamic Meta Ads policies with Claude AI.
+                  Uses real-time Meta Ads policies.
                 </Typography>
               </Box>
             </Box>
@@ -441,7 +441,7 @@ const FileUploadAnalyzer = () => {
               <Typography variant="body2" color="#666" sx={{ lineHeight: 1.6 }}>
                 {policySource === 'live' 
                   ? 'Uses real-time Meta Ads policies fetched from Meta\'s transparency resources for the most up-to-date compliance checking.'
-                  : 'Uses static Meta Ads policies with Gemini AI for consistent and reliable compliance checking.'
+                  : 'Uses Meta Ads policies for consistent and reliable compliance checking.'
                 }
               </Typography>
             </Box>
